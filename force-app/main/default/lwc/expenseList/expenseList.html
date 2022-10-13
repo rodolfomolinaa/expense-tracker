@@ -1,0 +1,11 @@
+<template>
+    <lightning-card>
+        <template if:true={expenses}>
+            <lightning-datatable
+                key-field="Id"
+                data={expenses}
+                columns={columns}>
+            </lightning-datatable>
+        </template>
+    </lightning-card>
+</template>

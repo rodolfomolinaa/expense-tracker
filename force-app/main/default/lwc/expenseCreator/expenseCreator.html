@@ -1,0 +1,37 @@
+<template>
+    <div class="slds-grid slds-gutters slds-wrap">
+        <div class="slds-col slds-size_8-of-12">
+            <lightning-card title="Create Expense" icon-name="standard:record_create">
+                <lightning-record-edit-form 
+                        object-api-name={expenseObject}
+                        fields={fields}
+                        columns="2"
+                        onsubmit={handleSubmit}
+                        onsuccess={handleSucces}>
+                    <lightning-input-field field-name="Id" value={expenseId} class="slds-hide"></lightning-input-field>                    
+                    <div class="slds-grid">
+                        <div class="slds-col slds-size_1-of-2">                            
+                            <lightning-input-field field-name={nameField}></lightning-input-field>                    
+                            <lightning-input-field field-name={categoryField}></lightning-input-field>
+                        </div>
+                        <div class="slds-col slds-size_1-of-2">
+                            <lightning-input-field field-name={amountField} type="currency"></lightning-input-field>
+                            <lightning-input-field field-name={dateField} type="date"></lightning-input-field>                    
+                        </div>
+                    </div>
+                    <div class="slds-grid">
+                        <div class="slds-col 2">
+                            <lightning-button class="slds-var-m-around_xx-small" label="Cancel" onclick={handleReset}></lightning-button>
+                            <lightning-button class="slds-var-m-around_xx-small" label="Save" variant="brand" type="submit"></lightning-button>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+            </lightning-card>
+        </div>
+        <div class="slds-col slds-size_12-of-12 slds-var-p-vertical_x-large">
+            <lightning-card title="Expenses" icon-name="standard:lead_list" message="This is a message from parent">        
+                <c-expense-list expense-id={expenseId}></c-expense-list>
+            </lightning-card>
+        </div>
+    </div>    
+  </template>
