@@ -32,7 +32,6 @@ export default class ExpenseList extends LightningElement {
     };
 
     @api refreshList() {
-        console.log('refreshList executed from parent');
         refreshApex(this.refreshExpenses);
     }
 
