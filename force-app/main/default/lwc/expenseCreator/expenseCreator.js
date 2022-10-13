@@ -16,19 +16,23 @@ export default class ExpenseCreator extends LightningElement {
 
     handleSubmit(event) {        
         event.preventDefault();
-        console.log('handleSubmit executed')
         const fields = event.detail.fields;        
-        if(fields) {     
-            // dates logic here       
-            console.log('fields without stringify', fields);
-            
-        }        
-                
-        this.template.querySelector('lightning-record-edit-form').submit(fields);
+        if(fields) {                    
+            const fieldsTransformed = JSON.parse(JSON.stringify(fields));
+            let expenseDate = new Date(fieldsTransformed.Expense_Date__c);
+            console.log('expenseDate',expenseDate);                                   
+            if(expenseDate.getDay() === 5) {
+                fields['Weekly_Recurring_Expense__c'] = true;
+            }
+            if(expenseDate.getDate() === 15) {
+                fields['Monthly_Recurring_Expense__c'] = true;
+            }
+            console.log('fielfs after statments', JSON.stringify(fields))
+            this.template.querySelector('lightning-record-edit-form').submit(fields);
+        }                                
     }
 
     handleSucces(event) {
-        console.log('handleSucces executed');
         const evt = new ShowToastEvent({
             title: 'Success',
             message: 'Expense created succesfully',
@@ -52,16 +56,5 @@ export default class ExpenseCreator extends LightningElement {
             });
         }
      }
-
-     handleError(event){
-        console.log('handleError executed', event.detail);
-        this.dispatchEvent(
-            new ShowToastEvent({
-                title: 'Error creating record',
-                message: event.detail.message,
-                variant: 'error',
-            }),
-        );
-    }
 
 }
